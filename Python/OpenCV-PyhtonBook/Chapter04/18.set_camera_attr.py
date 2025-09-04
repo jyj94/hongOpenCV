@@ -7,6 +7,11 @@ def put_string(frame, text, pt, value, color=(120,200,90)):
     cv2.putText(frame, text, shade, font, 0.7, (0, 0, 0), 2, cv2.LINE_AA)
     cv2.putText(frame, text, pt, font, 0.7, color, 2, cv2.LINE_AA)
 
+def zoom_bar(value):
+    global capture
+    capture.set(cv2.CAP_)
+
+
 capture = cv2.VideoCapture(imgDir + 'vtest.avi') # 카메라 입력 시작
 if capture.isOpened() == False: # 연결 확인
     raise Exception("카메라 연결 안됨")

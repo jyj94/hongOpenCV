@@ -1,28 +1,59 @@
 import numpy as np
 import cv2
 
-def onChange(value, color):
-    global image, title
-    addValue = image[0][0]
-    # red : 1 green : 2 blue : 3
-    if color == 1:
-        addValue[2] = value
-    elif color == 2:
-        addValue[1] = value
-    elif color == 3:
-        addValue[0] = value
+class sprite(self):
+    def __init__(self):
+        self.pos = (0, 0)
+        self.width = 0
+        self.height = 0
+        self.imageData = np.zeros((0,0,3), np.uint8)
+
+    def blit(self, inputimage):
+        pass
+
+    def draw(self):
+        pass
     
-    image[:] = addValue
-    cv2.imshow(title, image)
+    def update(self):
+        pass
 
-title = "test"
-image = np.zeros((500, 500, 3), np.uint8)
+    def setSprite(self, inputimage, inputPos=(0,0)):
+        self.pos = inputPos
+        self.imageData = inputimage
+        self.height, self.width = inputimage.shape[:2]
 
-cv2.imshow(title, image)
+class textSprite(sprite):
+    pass
 
-cv2.createTrackbar('Red', title, 0, 255, lambda v: onChange(v, 1))
-cv2.createTrackbar('Green', title, 0, 255, lambda v: onChange(v, 2))
-cv2.createTrackbar('Blue', title, 0, 255, lambda v: onChange(v, 3))
+class logoSprite(sprite):
+    pass
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+class mainDraw(self):
+    def __init__(self):
+        self.canvas = np.zeros((1000, 1000, 3), np.uint8)
+        self.mousePos = (0, 0)
+        self.bgrValue
+
+        self.showCanvas()
+
+    def drawSprite(self, sprite):
+        x, y = sprite.pos
+        h, w = sprite.height, sprite.width
+        if h > 0 and w > 0:
+            self.canvas[y:y+h, x:x+w] = sprite.imageData
+    def run(self):
+        pass
+
+    def update(self):
+        self.showCanvas()
+        
+        
+    def showCanvas(self):
+        cv2.imshow('canvas', self.canvas)
+
+def main():
+    mainDraw = mainDraw()
+    mainDraw.run()
+
+if __name__ == "__main__":
+    main()
