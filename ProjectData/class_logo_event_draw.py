@@ -134,7 +134,7 @@ class MainDraw:
     def __init__(self, screen_width=800, screen_height=600):
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.image = np.zeros((screen_width, screen_height, 3), np.uint8)
+        self.canvas = np.zeros((screen_width, screen_height, 3), np.uint8)
         self.mouse_position = (0, 0)
         self.mouse_on = False
         self.selected_channel = 'r'
@@ -177,7 +177,7 @@ class MainDraw:
 
     def on_mouse(self, event, x, y, flags, param):
         """마우스 이벤트 처리"""
-        clone_img = self.image.copy()
+        clone_img = self.canvas.copy()
 
         if event == cv2.EVENT_MOUSEMOVE:
             if self.mouse_on:
@@ -190,7 +190,7 @@ class MainDraw:
                 self.mouse_position = (x, y)
             self.mouse_on = True
         elif event == cv2.EVENT_LBUTTONUP:
-            cv2.line(self.image, self.mouse_position, (x, y), (255, 255, 255), 2)
+            cv2.line(self.canvas, self.mouse_position, (x, y), (255, 255, 255), 2)
             self.mouse_on = False
 
         self.draw_all_sprites(clone_img)
@@ -215,7 +215,7 @@ class MainDraw:
             elif self.selected_channel == 'b':
                 self.bgr_values[0] = min(255, self.bgr_values[0] + 5)
 
-            self.image[::] = self.bgr_values
+            self.canvas[::] = self.bgr_values
 
         elif key == 65364 or key == 2621440:  # 아래쪽 화살표
             if self.selected_channel == 'r':
@@ -225,7 +225,7 @@ class MainDraw:
             elif self.selected_channel == 'b':
                 self.bgr_values[0] = max(0, self.bgr_values[0] - 5)
 
-            self.image[::] = self.bgr_values
+            self.canvas[::] = self.bgr_values
 
     def run(self):
         """메인 실행 함수"""
@@ -234,8 +234,8 @@ class MainDraw:
 
         # 초기 화면 설정
         self.update_bgr_info()
-        self.draw_all_sprites(self.image)
-        cv2.imshow("main", self.image)
+        self.draw_all_sprites(self.canvas)
+        cv2.imshow("main", self.canvas)
 
         while True:
             key = cv2.waitKeyEx(30)
@@ -254,11 +254,10 @@ class MainDraw:
             self.update_all_sprites()
 
             # 화면 업데이트
-            if key in [ord('r'), ord('g'), ord('b'), 65362, 65364, 2621440, 2490368]:
-                self.update_bgr_info()
-                cloned_img = self.image.copy()
-                self.draw_all_sprites(cloned_img)
-                cv2.imshow("main", cloned_img)
+            self.update_bgr_info()
+            cloned_img = self.canvas.copy()
+            self.draw_all_sprites(cloned_img)
+            cv2.imshow("main", cloned_img)
 
         cv2.destroyAllWindows()
 

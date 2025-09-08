@@ -14,16 +14,14 @@ def main():
     h = b + 2
     print(g, h)
     print('a 자료형 : ', type(a), type(a[0]))
-    print('a shape : ', a.shape)
+    print('a 의 shape : ', a.shape)
     print('a 의 차원 : ', a.ndim)
     print('a 의 크기 : ', a.size)
     print('a 의 데이터 : ', a)
-    
-    imgfile = '/home/aa/hongOpenCV/Data/lenna.bmp'
-    img = cv2.imread(imgfile)
 
-    print(type(img))
-
+    imgfile = '/home/aa/hongOpencv/data/lenna.bmp'
+    img = cv2.imread(imgfile) # numpy 자료형
+    print('img 자료형 : ', type(img), type(img[0,0]), img.shape, img.ndim, img.size, img.dtype)
 
 if __name__ == "__main__":
     main()

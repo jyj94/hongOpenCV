@@ -11,10 +11,8 @@ def onMouse(event, x, y, flags, param):
     clone_img = image.copy()
     if event == cv2.EVENT_MOUSEMOVE:
         cv2.rectangle(clone_img, (x-10, y-10), (x+10, y+10), (255,0,0), -1)
-        print("move")
     elif event == cv2.EVENT_LBUTTONDOWN:
         mouse_position = (x, y)
-        print("up")
     elif event == cv2.EVENT_LBUTTONUP:
         cv2.line(image, mouse_position, (x,y), (255,255,255), 2)
     cv2.imshow("main", clone_img)
@@ -24,10 +22,10 @@ def main():
         ord('r'): 10,
         ord('g'): -10,
         ord('b'): 30,
-        65361: "왼쪽 방향키",
-        65363: "오른쪽 방향키",
-        65364: "아래쪽 방향키",
-        65362: "위쪽 방향키",
+        65361: -1,
+        65363: 1,
+        65364: -5,
+        65362: 5,
     }
 
     cv2.namedWindow("main")
